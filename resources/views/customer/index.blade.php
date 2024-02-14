@@ -27,6 +27,9 @@
                         <th>
                             City 
                         </th>
+                        <th>
+                            Active 
+                        </th>
                     </tr>  
                 </thead>
                 <tbody>  
@@ -55,12 +58,15 @@
                                 <nav>{{ $customer->city }}</nav>
                             </td>
                             <td>
+                                <nav>{{ $customer->is_active ? 'True' : 'False' }}</nav>
+                            </td>
+                            <td>
                                 <a href="{{ route('customer.edit', $customer) }}">Edit</a>
-                                <form action="{{ route('customer.destroy', $customer) }}" method="post">
+                                {{-- <form action="{{ route('customer.destroy', $customer) }}" method="post">
                                     @method("DELETE")
                                     @csrf
                                     <button type="submit">Delete</button>
-                                </form>
+                                </form> --}}
                             </td>
                         </tr>
                     @endforeach

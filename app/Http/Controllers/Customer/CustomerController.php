@@ -54,9 +54,11 @@ class CustomerController extends Controller
                 'email' => $request['email'],
                 'phone' => $request['phone'],
                 'country' => $request['country'],
-                'city' => $request['city']
+                'city' => $request['city'],
+                'is_active' => true
                 ]
         );
+        
         return to_route('customer.index');
     }
 
