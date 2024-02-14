@@ -30,7 +30,8 @@ class PutRequest extends FormRequest
             'email' => ['required', 'string', 'max:50'],
             'phone' => ['required', 'string'],
             'country' => ['required', 'string', 'max:50'],
-            'city' => ['required', 'string', 'max:50']
+            'city' => ['required', 'string', 'max:50'],
+            'is_active' => ['required']
         ];
     }
 }

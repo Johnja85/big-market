@@ -79,6 +79,18 @@
                     @enderror
                 </div>
 
+                <div>
+                    <label for="">Acive</label>
+                    <select name="is_active">
+                        <option value="1" {{ $customer->is_active == true ? 'selected' : ''}} >True</option>
+                        <option value="0" {{ $customer->is_active == false ? 'selected' : ''}} >False</option>
+                    </select>
+                    
+                    @error('is_active')
+                        <div class="alert alert-danger">{{ $errors->first('is_active') }}</div>
+                    @enderror
+                </div>
+
                 {{-- <div>
                     <label for="">Active</label>
                     <select name="active">
