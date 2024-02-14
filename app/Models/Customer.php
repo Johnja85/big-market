@@ -16,6 +16,7 @@ class Customer extends Model
         'email',
         'phone',
         'country',
-        'city'
+        'city',
+        'is_active'
     ];
 }
