@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
+    protected $customers;
 
     public function __construct()
     {
+        $this->customers = new Customer();
         $this->middleware('auth');
     }
     /**
@@ -23,7 +25,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::paginate('4');
+        $customers = $this->customers->paginate('4');
         return view('customer.index',compact('customers'));
 
     }
@@ -46,7 +48,8 @@ class CustomerController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        Customer::create(
+        // return $request->file('image')->store('images', 'public');
+        $this->customers->create(
             [
                 'nit' => $request['nit'],
                 'name' => $request['name'],
@@ -55,11 +58,12 @@ class CustomerController extends Controller
                 'phone' => $request['phone'],
                 'country' => $request['country'],
                 'city' => $request['city'],
+                'image' => $request->file('image')->store('images', 'public'),
                 'is_active' => true
                 ]
         );
-        
-        return to_route('customer.index');
+
+        return to_route('customer.index')->with('status', 'Se guardo datos exitosamente!');
     }
 
     /**
@@ -95,7 +99,7 @@ class CustomerController extends Controller
     {
         $customer->update($request->validated());
 
-        return to_route('customer.index'); 
+        return to_route('customer.index')->with('status', 'Datos del cliente actualizado satisfactoriamente!');
     }
 
     /**

@@ -17,22 +17,20 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div id="app" class="d-flex flex-column h-screen justify-content-between">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Big Market') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="{{ route('customer.index') }}">
-                    {{ __('Customers') }}
-                </a>
+               
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a class="navbar-brand" href="{{ route('customer.index') }}">
+                        {{ __('Customers') }}
+                    </a>
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
@@ -77,9 +75,14 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
+            @include('partials.session-status')
             @yield('content')
         </main>
+
+        <footer class="bg-white text-black-50 text-center py-3 shadow">
+            {{ config('app.name') }} | Copyright @ {{ date('Y') }}
+        </footer>
     </div>
 </body>
 </html>

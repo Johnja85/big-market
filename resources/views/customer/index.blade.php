@@ -1,38 +1,44 @@
 @extends('layouts.app')
 @section('content')
-
-<div class="py-12">
-        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-6">
-            <table>
-                <thead>
+    <div class="container">
+        <div class="p-4 sm:p-8">
+            <table class="form-control bg-white shadow roundend py-3 list-group list-group-item mb-3 border-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="display-4">Customers</h1>
+                    <a class="btn btn-primary" href="{{ route('customer.create') }}">New Create</a>
+                </div>
+                <thead class="text-primary">
                     <tr>
                         <th>
-                            Nit 
+                            Nit
                         </th>
                         <th>
-                            Name 
+                            Name
                         </th>
                         <th>
-                            Address 
+                            Address
                         </th>
                         <th>
-                            Email 
+                            Email
                         </th>
                         <th>
-                            Phone 
+                            Phone
                         </th>
                         <th>
-                            Country 
+                            Country
                         </th>
                         <th>
-                            City 
+                            City
                         </th>
                         <th>
-                            Active 
+                            image
                         </th>
-                    </tr>  
+                        <th>
+                            Active
+                        </th>
+                    </tr>
                 </thead>
-                <tbody>  
+                <tbody class="text-black-50 px-5">
                     @foreach ($customers as $customer)
                         <tr>
                             <td>
@@ -58,22 +64,26 @@
                                 <nav>{{ $customer->city }}</nav>
                             </td>
                             <td>
+                                @if ($customer->image)
+                                    <img src="/storage/{{ $customer->image }}">
+                                @endif
+                            </td>
+                            <td>
                                 <nav>{{ $customer->is_active ? 'True' : 'False' }}</nav>
                             </td>
                             <td>
                                 <a href="{{ route('customer.edit', $customer) }}">Edit</a>
                                 {{-- <form action="{{ route('customer.destroy', $customer) }}" method="post">
-                                    @method("DELETE")
-                                    @csrf
-                                    <button type="submit">Delete</button>
-                                </form> --}}
+                                        @method("DELETE")
+                                        @csrf
+                                        <button type="submit">Delete</button>
+                                    </form> --}}
                             </td>
                         </tr>
                     @endforeach
-                </tbody> 
+                </tbody>
             </table>
             {{ $customers->links() }}
-            <a href="{{ route('customer.create') }}">New Create</a>
-         </div>
-     </div>
+        </div>
+    </div>
 @endsection

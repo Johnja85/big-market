@@ -31,7 +31,8 @@ class StoreRequest extends FormRequest
             'email' => ['required', 'string', 'max:50', 'unique:' . Customer::class],
             'phone' => ['required', 'string'],
             'country' => ['required', 'string', 'max:50'],
-            'city' => ['required', 'string', 'max:50']
+            'city' => ['required', 'string', 'max:50'],
+            'image' => ['required']
         ];
     }
 }
