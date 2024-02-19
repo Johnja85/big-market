@@ -17,6 +17,7 @@ class Customer extends Model
         'phone',
         'country',
         'city',
+        'image',
         'is_active'
     ];
 }
