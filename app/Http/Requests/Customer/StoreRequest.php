@@ -32,7 +32,7 @@ class StoreRequest extends FormRequest
             'phone' => ['required', 'string'],
             'country' => ['required', 'string', 'max:50'],
             'city' => ['required', 'string', 'max:50'],
-            'image' => ['required']
+            'image' => ['required', 'image']
         ];
     }
 }
