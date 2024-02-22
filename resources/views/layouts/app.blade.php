@@ -31,6 +31,10 @@
                     <a class="navbar-brand" href="{{ route('customer.index') }}">
                         {{ __('Customers') }}
                     </a>
+
+                    <a class="navbar-brand" href="{{ route('product.index') }}">
+                        {{ __('Products') }}
+                    </a>
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 

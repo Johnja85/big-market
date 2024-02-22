@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Product\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Auth::routes(['verify' => true ]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
 
 Route::resource('customer', CustomerController::class);
+
+Route::resource('product', ProductController::class);
 
 // Auth::routes(['verify' => true ]);
 

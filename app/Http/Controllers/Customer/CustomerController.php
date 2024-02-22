@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\PutRequest;
 use App\Http\Requests\Customer\StoreRequest;
 use App\Models\Customer;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -26,8 +24,8 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = $this->customers->paginate('4');
-        return view('customer.index',compact('customers'));
 
+        return view('customer.index',compact('customers'));
     }
 
     /**
