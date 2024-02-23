@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class OptimizeProductImage
+class OptimizeProductImage implements ShouldQueue
 {
     /**
      * Create the event listener.
