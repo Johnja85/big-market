@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Events\ProductSaved;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +27,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->products->get();
+        $products = $this->products->with('category')->get();
 
         return view('product.index',compact('products'));
 
@@ -39,7 +40,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $categories = Category::pluck('name', 'id');
+
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -52,6 +55,7 @@ class ProductController extends Controller
     {
         $product->create(
             [
+                'category_id' => $request['category_id'],
                 'description' => $request['description'],
                 'stock' => $request['stock'],
                 'price' => $request['price'],
@@ -84,7 +88,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('product.edit', compact('product'));
+        $categories = Category::pluck('name', 'id');
+
+        return view('product.edit', compact('product', 'categories'));
     }
 
     /**

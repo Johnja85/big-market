@@ -3,7 +3,14 @@
     <div class="container">
         <div class="p-4 sm:p-8">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="display-4">Products</h1>
+                @isset($category)
+                    <div>
+                        <h1 class="display-4">{{ $category->name }}</h1>
+                        <a href="{{ route('product.index') }}" class="badge text-bg-secondary">Go to all products</a>
+                    </div>
+                @else
+                    <h1 class="display-4">Products</h1>
+                @endisset
                 <a class="btn btn-primary" href="{{ route('product.create') }}">New Create</a>
             </div>
             <div class="d-flex flex-wrap justify-content-between align-items-start">
@@ -15,13 +22,22 @@
                         @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->description }}</h5>
-                            <p class="card-text">{{ $product->price }}</p>
-                            <a href="{{ route('product.edit', $product) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('product.destroy', $product) }}" method="post">
-                                @method("DELETE")
-                                @csrf
-                                <button class="btn btn-primary" type="submit">Delete</button>
-                            </form>
+                            <div class="d-flex justify-content-between">
+                                <a href="#" class="badge text-bg-secondary">{{ 'Price: ' . $product->price }}</a>
+                                <a href="#" class="badge text-bg-secondary">{{ 'Stock: ' . $product->stock }}</a>
+                            </div>
+                            @if ($product->category)
+                                <a href="{{ route('category.show', $product->category->id ) }}" class="badge text-bg-success justify-content-right">{{ 'Category: ' . (isset($product->category) ? $product->category->name : 'Without category') }}</a>  
+                            @endif
+                            <p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('product.edit', $product) }}" class="btn btn-primary">Edit</a>
+                                <form action="{{ route('product.destroy', $product) }}" method="post">
+                                    @method("DELETE")
+                                    @csrf
+                                    <button class="btn btn-primary" type="submit">Delete</button>
+                                </form>
+                            </div>
                         </div>
                         
                     </div>
