@@ -50,9 +50,23 @@
                 @enderror
             </div>
 
+            <div>
+                <label class="py-2" for="">Category</label>
+                <select name="category_id" id="category_id" class="form-control" placeholder="Product category...">
+                    <option value="">select</option>
+                    @foreach ($categories as $id => $name)
+                        <option {{ $id === $product->category_id ? 'selected' : '' }} value="{{ $id }}">{{ $name }}</option> 
+                    @endforeach
+                </select>
+
+                @error('category_id')
+                    <div class="alert alert-danger">{{ $errors->first('category_id') }}</div>
+                @enderror
+            </div>
+
             <div class="mb-3">
                 <label for="formFile" class="form-label">Image</label>
-                <input name="image" class="form-control form-control-lg @error('image') is-invalid @enderror" id="formFileLg" type="file">
+                <input name="image" class="form-control form-control-lg @error('image') is-invalid @enderror" id="formFileLg" type="file" >
                 @error('image')
                     <div class="alert alert-danger">{{ $errors->first('image') }}</div>
                 @enderror

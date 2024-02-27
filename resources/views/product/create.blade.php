@@ -33,6 +33,14 @@
                     <div class="alert alert-danger">{{ $errors->first('price') }}</div>
                 @enderror
             </div>
+            <div class="form-group py-3">
+                <select name="category_id" id="category_id" class="form-control" placeholder="Product category...">
+                    <option value="">select</option>
+                    @foreach ($categories  as $id => $name)
+                        <option {{ $id == old('category_id' ? $id : '')  }} value="{{ $id }}">{{ $name }}</option> 
+                    @endforeach
+                </select>
+            </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Product Image</label>
                 <input name="image" class="form-control form-control-lg" id="formFileLg" type="file">

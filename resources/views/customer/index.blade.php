@@ -83,7 +83,9 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $customers->links() }}
+            <div class="mt-4">
+                {{ $customers->links() }}
+            </div>
         </div>
     </div>
 @endsection
