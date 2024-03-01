@@ -11,7 +11,9 @@
                 @else
                     <h1 class="display-4">Products</h1>
                 @endisset
-                <a class="btn btn-primary" href="{{ route('product.create') }}">New Create</a>
+                @can('create', $newProduct)
+                    <a class="btn btn-primary" href="{{ route('product.create') }}">New Create</a>
+                @endcan
             </div>
             <div class="d-flex flex-wrap justify-content-between align-items-start">
                     @forelse($products as $product)
@@ -31,12 +33,16 @@
                             @endif
                             <p>
                             <div class="d-flex justify-content-between">
-                                <a href="{{ route('product.edit', $product) }}" class="btn btn-primary">Edit</a>
-                                <form action="{{ route('product.destroy', $product) }}" method="post">
-                                    @method("DELETE")
-                                    @csrf
-                                    <button class="btn btn-primary" type="submit">Delete</button>
-                                </form>
+                                @can('update', $newProduct)
+                                    <a href="{{ route('product.edit', $product) }}" class="btn btn-primary">Edit</a>
+                                @endcan
+                                @can('delete', $newProduct)
+                                    <form action="{{ route('product.destroy', $product) }}" method="post">
+                                        @method("DELETE")
+                                        @csrf
+                                        <button class="btn btn-primary" type="submi t">Delete</button>
+                                    </form>
+                                @endcan
                             </div>
                         </div>
                         
