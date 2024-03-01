@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreRequest extends FormRequest
 {
@@ -14,6 +15,7 @@ class StoreRequest extends FormRequest
     public function authorize()
     {
         return true;
+        // return Gate::allows('product.create');
     }
 
     /**

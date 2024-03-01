@@ -8,8 +8,8 @@ use App\Http\Requests\Product\StoreRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Laravel\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -28,8 +28,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->products->with('category')->get();
+        $newProduct = new Product;
 
-        return view('product.index',compact('products'));
+        return view('product.index',compact('products', 'newProduct'));
 
     }
 
@@ -40,9 +41,17 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', new Product);
         $categories = Category::pluck('name', 'id');
 
         return view('product.create', compact('categories'));
+        // if (Gate::allows('product.create')) {
+        //     $categories = Category::pluck('name', 'id');
+
+        //     return view('product.create', compact('categories'));
+        // }
+        
+        // abort(403);
     }
 
     /**
@@ -53,6 +62,7 @@ class ProductController extends Controller
      */
     public function store(StoreRequest $request, Product $product)
     {
+
         $product->create(
             [
                 'category_id' => $request['category_id'],
@@ -62,6 +72,8 @@ class ProductController extends Controller
                 'image' => $request->file('image')->store('images', 'public'),
             ]
         );
+        $this->authorize('create', $product);
+
         $product->image = $request->file('image')->store('images', 'public');
 
         ProductSaved::dispatch($product);
@@ -88,6 +100,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $this->authorize('update', $product);
         $categories = Category::pluck('name', 'id');
 
         return view('product.edit', compact('product', 'categories'));
@@ -102,6 +115,8 @@ class ProductController extends Controller
      */
     public function update(StoreRequest $request, Product $product)
     {
+        $this->authorize('update', $product);
+
         if ($request->hasFile('image')) {
 
             Storage::disk('public')->delete($product->image);
@@ -128,6 +143,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('delete', $product);
+
         Storage::disk('public')->delete($product->image);
 
         $product->delete();
